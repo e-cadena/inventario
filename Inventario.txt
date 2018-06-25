@@ -1,0 +1,107 @@
+//Aqui creamos la base de datos llamada inventario.
+CREATE DATABASE "Inventario"
+    WITH 
+    OWNER = "Esteban"
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_Ecuador.1252'
+    LC_CTYPE = 'Spanish_Ecuador.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+//Creamos las tablas que permiten el flujo del trabajo
+CREATE TABLE Productos(
+id int primary key,
+nombreProducto varchar (50)not null,
+fechaCaducidad date not null,
+cantidad int not null,
+precioUnitario int not null,
+tipoProducto varchar(50)not null
+);
+
+
+CREATE TABLE detalleFacturas(
+id int primary key,
+idproducto int foreign key,
+idfactura int foreign key,
+precioDecimal not null,
+cantidad int not null,
+valorTotal not null
+);
+
+CREATE TABLE Facturas(
+id int primary key,
+numFactura int not null,
+nombreCliente varchar (20)not null,
+cedula varchar (10)not null,
+direccion varchar (100)not null,
+telefono varchar (10) not null,
+ivaDecimal not null,
+totalDecimal not null
+);
+
+CREATE TABLE tipoProductos(
+id int primary key,
+nombreTipo varchar (10) not null
+);
+
+
+CREATE TABLE Empleados(
+id primary key,
+idpersona foreign key,
+fechaInicio date not null,
+sueldo int not null
+);
+
+
+CREATE TABLE Personas(
+id int primary key,
+nombre int not null,
+cedula varchar (10)not null,
+direccion varchar (100)not null,
+telefono varchar (10) not null
+);
+
+CREATE TABLE Proveedores(
+id int primary key,
+idpersona foreign key,
+);
+
+CREATE TABLE Clientes(
+id primary key,
+idpersona foreign key
+);
+
+CREATE TABLE ProveedorProductos(
+id int primary key,
+id foreign key,
+ruc varchar (20)not null
+);
+
+CREATE TABLE ProveedorBodegas(
+id primary key,
+idbodegas  foreign key,
+idproducto  foreign key,
+cantidad foreign key
+);
+
+CREATE TABLE Bodegas(
+id  primary key,
+idproducto foreign key
+);
+
+CREATE TABLE tipoCedulas(
+id int primary key,
+cedula foreign key,
+ruc  foreign key
+);
+
+//En estas tablas podemos determinar el tipod e personas que realiza accionesen la bdd
+CREATE TABLE Natural (
+id int primary key,
+cedula  foreign key
+);
+
+CREATE TABLE Juridico(
+id int primary key,
+ruc varchar (20)not null
+);
